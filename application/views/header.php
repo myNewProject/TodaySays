@@ -18,8 +18,11 @@ body {
 	height:100%;
 }
 #body-container {
-	height: :100%;
+	height: 100%;
 	min-height: 100%;
+ }
+ .navbar-margin-top{
+ 	margin-top: 50px;
  }
  #footer {
  	padding-top: -40px;
@@ -66,48 +69,37 @@ body {
 <!-- BEGIN HEADER -->
 <div class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand collapsed " data-toggle="collapse" data-target="#menu-1" href="#">
+			<a class="navbar-brand collapsed" style="floast: left;" data-toggle="collapse" data-target="#menu-1" href="#">
 				<span class="glyphicon glyphicon-menu-hamburger"></span>
 			</a>
-		</div>
-		<div id="menu-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-				<li><a href="#">Link</a></li>
-			</ul>
-		</div>
-		<div>
-			<ul class="nav navbar-nav navbar-right">
 			<?php 
 			if ($this->session->userdata('is_login')) {	?>
-				<li>
-					<a href="#">
-					<span class="glyphicon glyphicon-bell" data-toggle="tooltip" data-placement="bottom" title="알림"></span></a>
-				</li>
-				<li>
-					<a href="<?=site_url('/')?>auth/logout">
-					<span class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></span></a>
-				</li>
-
+				<a class="navbar-brand" style=" float: right!important;" href="<?=site_url('/')?>auth/logout">
+					<span class="glyphicon glyphicon-remove-sign" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></span>
+				</a>
+				<a class="navbar-brand" style=" float: right;" data-toggle="popover" data-placement="bottom" title="Dismissible popover" data-html="true" data-content="<a href='#'>첫번째 알림</a><br><a href='#'>두번째 알림</a>" href="#">
+					<span class="glyphicon glyphicon-bell" data-toggle="tooltip" data-placement="bottom" title="알림"></span>
+				</a>
 			<?php
 			} else {	?>
-				<li>
-					<a href="#login_form" data-toggle="modal">
-					<span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="로그인"></span></a>
-				</li>
-				<li><a href="<?=site_url('/Auth/register')?>">
-					<span class="glyphicon glyphicon-ok-sign" data-toggle="tooltip" data-placement="bottom" title="회원가입"></span></a>
-				</li>
-				
+				<a class="navbar-brand" style=" float: right;" data-toggle="modal" href="#login_form">
+					<span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="로그인"></span>
+				</a>
+				<a class="navbar-brand" style=" float: right;" href="<?=site_url('/Auth/register')?>">
+					<span class="glyphicon glyphicon-ok-sign" data-toggle="tooltip" data-placement="bottom" title="회원가입"></span>
+				</a>				
 			<?php
 			}
 			?>
-			</ul>
 		</div>
 	</div><!-- /.container-fluid -->
 </div>
-					
+<div id="menu-1" class="collapse navbar-margin-top">
+	<ul class="nav nav-pills nav-stacked">
+		<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+		<li><a href="#">Link</a></li>
+	</ul>
+</div>
 <div class="modal fade" id="login_form" role="dialog" aria-labelledby="login_title" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

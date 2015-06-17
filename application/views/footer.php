@@ -30,8 +30,13 @@
 			success: function(){ alert("좋아요를 눌렀습니다."); }
 		});*/
 	}
+	// bootstrap 툴팁 초기화
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
+	})
+	// bootstrap 팝오버 초기화
+	$(function () {
+		$('[data-toggle="popover"]').popover()
 	})
 </script>
 <!-- END JAVASCRIPTS -->
