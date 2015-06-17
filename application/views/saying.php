@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="jumbotron margin-top">
+	<div class="col-sm-12 jumbotron margin-top">
 		<p>
 			<?=$say?>
 		</p>

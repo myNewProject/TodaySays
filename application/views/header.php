@@ -82,12 +82,12 @@ body {
 				</a>
 			<?php
 			} else {	?>
-				<a class="navbar-brand" style=" float: right;" data-toggle="modal" href="#login_form">
-					<span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="로그인"></span>
-				</a>
 				<a class="navbar-brand" style=" float: right;" href="<?=site_url('/Auth/register')?>">
 					<span class="glyphicon glyphicon-ok-sign" data-toggle="tooltip" data-placement="bottom" title="회원가입"></span>
-				</a>				
+				</a>
+				<a class="navbar-brand" style=" float: right;" data-toggle="modal" href="#login_form">
+					<span class="glyphicon glyphicon-user" data-toggle="tooltip" data-placement="bottom" title="로그인"></span>
+				</a>	
 			<?php
 			}
 			?>
