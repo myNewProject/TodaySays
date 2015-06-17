@@ -3,17 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Collection extends MY_Controller {
 	public function index() {
-		redirect('/Collection/saying');
+		redirect('/Collection/saying/0');
 	}
 
-	public function saying() {
+	public function saying($index) {
 		$this->load->view('header');
 		$this->load->model('Collection_model');
-		$qResult = $this->Collection_model->getMax();
-		$max = $qResult->max;
-		$index = mt_rand(1, $max);
-//		$index = 1;
 
+		if ($index == 0) {
+			$qResult = $this->Collection_model->getMax();
+			$max = $qResult->max;
+			$index = mt_rand(1, $max);
+//			$index = 1;
+		} 
 		$this->getEachPage($index);
 
 		$this->load->view('footer');
