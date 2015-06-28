@@ -6,7 +6,7 @@ class Collection extends MY_Controller {
 		redirect('/Collection/saying/0');
 	}
 
-	public function saying($index) {
+	public function saying($index) {		/* 메인 */
 		$this->load->view('header');
 		$this->load->model('Collection_model');
 
@@ -22,16 +22,16 @@ class Collection extends MY_Controller {
 		$this->load->view('footer');
 	}
 
-	public function keepingSays() {
+	public function keepingSays() {		/* 담은 명언 불러오기 */
 		if (!$this->session->userdata('is_login')) {
 			$this->session->set_flashdata('message', '로그인이 필요한 서비스 입니다.');
-			redirect('/Auth/login?returnURL='.rawurlencode(site_url('/Collection/keepingSays')));
+			redirect('/Collection');
 		}
 
 		$this->load->view('header');
-		$this->load->model('UserLike_model');
+		$this->load->model('Userlike_model');
 
-		$qResult = $this->UserLike_model->getAll($this->session->userdata('userID'));
+		$qResult = $this->Userlike_model->getAll($this->session->userdata('userID'));
 		foreach ($qResult as $result) {
 			$this->getCollection($result->coll_id);
 		}
@@ -56,9 +56,9 @@ class Collection extends MY_Controller {
 	}
 
 	private function getKeepSays($user_id, $coll_id) {
-		$this->load->model('UserLike_model');
+		$this->load->model('Userlike_model');
 
-		return $this->UserLike_model->get($user_id, $coll_id);
+		return $this->Userlike_model->get($user_id, $coll_id);
 	}
 
 	private function getComments($index) {	/* Comment 불러오기 */
@@ -105,15 +105,15 @@ class Collection extends MY_Controller {
 	}
 
 	public function keepSays() {		/* 명언 좋아요 기능 */
-		$this->load->model('UserLike_model');
-		$this->UserLike_model->put($this->session->userdata('userID'), $this->input->post('coll_id'));
+		$this->load->model('Userlike_model');
+		$this->Userlike_model->put($this->session->userdata('userID'), $this->input->post('coll_id'));
 
 		echo "<button type='button' id='removeSays' class='btn btn-success' onclick='removeSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-ok'></span> 담겨있음</button>";
 	}
 
 	public function removeSays() {		/* 명언 좋아요 기능 */
-		$this->load->model('UserLike_model');
-		$this->UserLike_model->del($this->session->userdata('userID'), $this->input->post('coll_id'));
+		$this->load->model('Userlike_model');
+		$this->Userlike_model->del($this->session->userdata('userID'), $this->input->post('coll_id'));
 
 		echo "<button type='button' id='keepSays' class='btn btn-primary' onclick='keepSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-plus'></span> 담아두기</button>";
 	}

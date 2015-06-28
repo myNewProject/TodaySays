@@ -1,5 +1,5 @@
 <?php
-class UserLike_model extends CI_Model{
+class Userlike_model extends CI_Model{
  
     function __construct()
     {
