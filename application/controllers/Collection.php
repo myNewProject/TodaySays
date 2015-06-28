@@ -48,6 +48,7 @@ class Collection extends MY_Controller {
 		if (!is_null($qResult[0]->say_by)) 
 			$by = $qResult[0]->say_by;
 
+		$keeping = 0;
 		if ($this->session->userdata('is_login'))
 			$keeping = $this->getKeepSays($this->session->userdata('userID'), $coll_id);
 
