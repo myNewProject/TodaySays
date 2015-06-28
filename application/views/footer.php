@@ -14,7 +14,8 @@
 <script src="<?=site_url('/static/plugins')?>/jquery/1.11.2/jquery.js" type="text/javascript"></script>
 <script src="<?=site_url('/static/plugins')?>/bootstrap-3.3.4/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-	function like (id) {
+	// 댓글 좋아요
+	function likeComment (id) {
 		$.ajax({
 			type: 'POST',
 			url: "<?=site_url('/Collection')?>/likeComment", 
@@ -29,6 +30,24 @@
 			url: "
 			success: function(){ alert("좋아요를 눌렀습니다."); }
 		});*/
+	}
+	// 명언 담기
+	function keepSays (id) {
+		$.post("<?=site_url('/Collection')?>/keepSays", 
+			{ coll_id: id }, 
+			function(result) {
+				alert("담았습니다.");
+				$("#"+id).html(result);
+		});
+	}
+	// 명언 담기 취소
+	function removeSays (id) {
+		$.post("<?=site_url('/Collection')?>/removeSays", 
+			{ coll_id: id }, 
+			function(result) {
+				alert("취소했습니다.");
+				$("#"+id).html(result);
+		});
 	}
 	// bootstrap 툴팁 초기화
 	$(function () {

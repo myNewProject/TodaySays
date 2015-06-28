@@ -1,10 +1,10 @@
 <div class="row comment bg-info"><!-- each comments -->
-	<? if ($re_id != 0) { ?>
+	<? if ($re_id != 0) { ?>	<!-- 대댓이 있는경우 -->
 	<div class="col-xs-1">
 		<span class="glyphicon glyphicon-minus"></span>
 	</div>
 	<div class="col-xs-11 bg-com">
-	<? } else { ?>
+	<? } else { ?>		<!-- 대댓이 없는경우 -->
 	<div class="col-xs-12">
 	<? } ?>
 		<div class="row">
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary comment-top" onclick="like(<?=$co_id?>)">좋아요 <span class="badge"><?=$liker?></span></button>
+			<button type="button" class="btn btn-primary comment-top" onclick="likeComment(<?=$co_id?>)">좋아요 <span class="badge"><?=$liker?></span></button>
 			<? if ($this->session->userdata('is_login') && $re_id == 0) {	?>
 			<button type="button" class="btn btn-warning comment-top" data-toggle="collapse" data-target="#com<?=$co_id?>" aria-expanded="false" aria-controls="collapseExample">댓글달기</button>
 			<div class="col-sm-12 collapse" aria-hidden="true" id="com<?=$co_id?>">

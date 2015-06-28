@@ -20,8 +20,7 @@ body {
 	height:100%;
 }
 #body-container {
-	height: 100%;
-	min-height: 100%;
+	min-height: 97%;
  }
  .navbar-margin-top{
  	margin-top: 50px;
@@ -45,7 +44,7 @@ body {
 }
 .comment {
 }
-#by {
+.by {
 	font-style: italic; 
 	text-align: right;
 	font-family: Bodoni Bd BT;
@@ -96,8 +95,9 @@ body {
 </div><!-- /.container-fluid -->
 <div id="menu-1" class="collapse navbar-margin-top">
 	<ul class="nav nav-pills nav-stacked">
-		<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-		<li><a href="#">Link</a></li>
+		<li><a href="<?=site_url('/Collection')?>">메인으로 돌아가기</a></li>
+		<li><a href="<?=site_url('/Collection/keepingSays')?>">담은 명언</a></li>
+		<li><a href="#">내가만든 명언</a></li>
 	</ul>
 </div>
 <div class="modal fade" id="login_form" role="dialog" aria-labelledby="login_title" aria-hidden="true">
@@ -114,7 +114,7 @@ body {
 			<div class="modal-body">
 				<div class="container-fluid">
 					<div class="row">
-					<form class="form-horizontal" method="post" action="<?=site_url('/')?>auth/authentication<?=empty($returnURL) ? '' : '?returnURL='.rawurlencode($returnURL) ?>">	
+					<form class="form-horizontal" method="post" action="<?=site_url('/')?>auth/login<?=empty($returnURL) ? '' : '?returnURL='.rawurlencode($returnURL) ?>">	
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="inputEmail">아이디</label>
 							<div class="col-sm-10">

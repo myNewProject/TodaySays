@@ -43,7 +43,7 @@ class Auth extends MY_Controller {
                 $this->load->view('footer');
             }
 
-    	public function authentication() {
+    	public function login() {
     		$this->load->model('user_model');
                   $user = $this->user_model->getByEmail(array('email'=>$this->input->post('email')));
                   if(function_exists('password_hash')) {

@@ -16,28 +16,51 @@ class Collection extends MY_Controller {
 			$index = mt_rand(1, $max);
 //			$index = 1;
 		} 
-		$this->getEachPage($index);
+		$this->getCollection($index);
+		$this->getComments($index);
 
 		$this->load->view('footer');
 	}
 
-	private function getEachPage($index) {
-		$qResult = $this->getCollection($index);	// Says 불러오기
+	public function keepingSays() {
+		if (!$this->session->userdata('is_login')) {
+			$this->session->set_flashdata('message', '로그인이 필요한 서비스 입니다.');
+			redirect('/Auth/login?returnURL='.rawurlencode(site_url('/Collection/keepingSays')));
+		}
+
+		$this->load->view('header');
+		$this->load->model('UserLike_model');
+
+		$qResult = $this->UserLike_model->getAll($this->session->userdata('userID'));
+		foreach ($qResult as $result) {
+			$this->getCollection($result->coll_id);
+		}
+
+		$this->load->view('footer');
+	}
+
+	private function getCollection($index) {	/* Says 불러오기 */
+		$this->load->model('Collection_model');
+		$qResult = $this->Collection_model->get($index);		// Says 불러오기
+		$coll_id = $qResult[0]->id;
 		$say = $qResult[0]->say;
 		$trans = $qResult[0]->trans;
 		if (!is_null($qResult[0]->say_by)) 
 			$by = $qResult[0]->say_by;
-		$this->load->view('saying', array('say'=>$say, 'trans'=>$trans, 'by'=>$by, 'index'=>$index));
 
-		$this->getComments($index);	// Comment 불러오기
-		$this->load->view('write_comment');
+		if ($this->session->userdata('is_login'))
+			$keeping = $this->getKeepSays($this->session->userdata('userID'), $coll_id);
+
+		$this->load->view('saying', array('coll_id'=>$coll_id, 'say'=>$say, 'trans'=>$trans, 'by'=>$by, 'index'=>$index, 'keeping'=>$keeping));
 	}
 
-	private function getCollection($index) {
-		return $this->Collection_model->get($index);
+	private function getKeepSays($user_id, $coll_id) {
+		$this->load->model('UserLike_model');
+
+		return $this->UserLike_model->get($user_id, $coll_id);
 	}
 
-	private function getComments($index) {
+	private function getComments($index) {	/* Comment 불러오기 */
 		$this->load->model('Comments_model');
 
 		$resultCom = $this->Comments_model->getComments($index);
@@ -77,14 +100,29 @@ class Collection extends MY_Controller {
 				}
 			}
 		}
+		$this->load->view('write_comment');
 	}
 
-	public function likeComment() {
+	public function keepSays() {		/* 명언 좋아요 기능 */
+		$this->load->model('UserLike_model');
+		$this->UserLike_model->put($this->session->userdata('userID'), $this->input->post('coll_id'));
+
+		echo "<button type='button' id='removeSays' class='btn btn-success' onclick='removeSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-ok'></span> 담겨있음</button>";
+	}
+
+	public function removeSays() {		/* 명언 좋아요 기능 */
+		$this->load->model('UserLike_model');
+		$this->UserLike_model->del($this->session->userdata('userID'), $this->input->post('coll_id'));
+
+		echo "<button type='button' id='keepSays' class='btn btn-primary' onclick='keepSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-plus'></span> 담아두기</button>";
+	}
+
+	public function likeComment() {		/* 댓글 좋아요 기능 */
 		$this->load->model('Comments_model');
 		$this->Comments_model->likeComment($this->input->post('index'));
 	}
 
-	public function addComment($index, $re_id) {
+	public function addComment($index, $re_id) {	/* Comment 추가 */
 		if (!$this->session->userdata('is_login')){
 			$this->session->set_flashdata('message', '세션이 만료되었습니다.');
 		}
