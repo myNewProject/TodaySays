@@ -31,6 +31,7 @@ class Collection extends MY_Controller {
 		$this->load->view('header');
 		$this->load->model('Userlike_model');
 
+		// 담은 명언 모두 출력
 		$qResult = $this->Userlike_model->getAll($this->session->userdata('userID'));
 		foreach ($qResult as $result) {
 			$this->getCollection($result->coll_id);
@@ -55,7 +56,7 @@ class Collection extends MY_Controller {
 		$this->load->view('saying', array('coll_id'=>$coll_id, 'say'=>$say, 'trans'=>$trans, 'by'=>$by, 'index'=>$index, 'keeping'=>$keeping));
 	}
 
-	private function getKeepSays($user_id, $coll_id) {
+	private function getKeepSays($user_id, $coll_id) {		/* 담은 명언 확인 */
 		$this->load->model('Userlike_model');
 
 		return $this->Userlike_model->get($user_id, $coll_id);
@@ -104,17 +105,17 @@ class Collection extends MY_Controller {
 		$this->load->view('write_comment');
 	}
 
-	public function keepSays() {		/* 명언 좋아요 기능 */
+	public function keepSays() {		/* 명언 담기 기능 */
 		$this->load->model('Userlike_model');
 		$this->Userlike_model->put($this->session->userdata('userID'), $this->input->post('coll_id'));
-
+		// ajax return 값
 		echo "<button type='button' id='removeSays' class='btn btn-success' onclick='removeSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-ok'></span> 담겨있음</button>";
 	}
 
-	public function removeSays() {		/* 명언 좋아요 기능 */
+	public function removeSays() {		/* 명언 빼기 기능 */
 		$this->load->model('Userlike_model');
 		$this->Userlike_model->del($this->session->userdata('userID'), $this->input->post('coll_id'));
-
+		// ajax return 값
 		echo "<button type='button' id='keepSays' class='btn btn-primary' onclick='keepSays(".$this->input->post('coll_id').")'><span class='glyphicon glyphicon-plus'></span> 담아두기</button>";
 	}
 

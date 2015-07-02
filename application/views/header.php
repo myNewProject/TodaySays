@@ -31,6 +31,9 @@ body {
 .margin-top {
 	margin-top:100px;
 }
+.padding-bottom {
+	padding-bottom: 10px;
+}
 .comment-top {
 	margin-top: 16px;
 }
