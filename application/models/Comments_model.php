@@ -20,8 +20,10 @@ class Comments_model extends CI_Model{
 
     function likeComment($index) {
         $strQuery = "UPDATE comments SET liker = liker+1 WHERE co_id=".$index;
- 
-       $this->db->query($strQuery);
+        $this->db->query($strQuery);
+            
+        $strQuery = "SELECT liker FROM comments WHERE co_id=".$index;    
+        return $this->db->query($strQuery)->row();
     }
     
     public function addComment($index, $re_id, $userID, $nickname, $comment) {

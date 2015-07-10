@@ -121,7 +121,9 @@ class Collection extends MY_Controller {
 
 	public function likeComment() {		/* 댓글 좋아요 기능 */
 		$this->load->model('Comments_model');
-		$this->Comments_model->likeComment($this->input->post('index'));
+		$result = $this->Comments_model->likeComment($this->input->post('index'));
+		// ajax return 값
+		echo "<button type='button' class='btn btn-primary comment-top' id='co_id".$this->input->post('index')."' onclick='likeComment(".$this->input->post('index').")'>좋아요 <span class='badge'>".$result->liker."</span></button>";
 	}
 
 	public function addComment($index, $re_id) {	/* Comment 추가 */

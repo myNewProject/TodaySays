@@ -16,20 +16,12 @@
 <script type="text/javascript">
 	// 댓글 좋아요
 	function likeComment (id) {
-		$.ajax({
-			type: 'POST',
-			url: "<?=site_url('/Collection')?>/likeComment", 
-			data: { index: id },
-			cache: false,
-			async: false
-		})
-		.done(function () {
-			alert("좋아요를 눌렀습니다.");
+		$.post("<?=site_url('/Collection')?>/likeComment", 
+			{ index: id }, 
+			function(result) {
+				alert("좋아요를 눌렀습니다.");
+				$("#co_id"+id).html(result);
 		});
-		/*$.ajax({
-			url: "
-			success: function(){ alert("좋아요를 눌렀습니다."); }
-		});*/
 	}
 	// 명언 담기
 	function keepSays (id) {

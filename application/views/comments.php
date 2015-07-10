@@ -18,7 +18,7 @@
 				<?=$comment?>
 			</div>
 		<div class="col-xs-12">
-			<button type="button" class="btn btn-primary comment-top" onclick="likeComment(<?=$co_id?>)">좋아요 <span class="badge"><?=$liker?></span></button>
+			<span id="co_id<?=$co_id?>"><button type="button" class="btn btn-primary comment-top" onclick="likeComment(<?=$co_id?>)">좋아요 <span class="badge"><?=$liker?></span></button></span>
 			<? if ($this->session->userdata('is_login') && $re_id == 0) {	?>
 			<button type="button" class="btn btn-warning comment-top" data-toggle="collapse" data-target="#com<?=$co_id?>" aria-expanded="false" aria-controls="collapseExample">댓글달기</button>
 			<div class="col-sm-12 collapse" aria-hidden="true" id="com<?=$co_id?>">
