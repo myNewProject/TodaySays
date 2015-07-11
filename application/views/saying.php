@@ -13,7 +13,10 @@
 		<? } else { ?>
 			<button type="button" class="btn btn-success" onclick="removeSays(<?=$coll_id?>)"><span class="glyphicon glyphicon-ok"></span> 담겨있음</button>
 		<? }
-	} ?>
+	} 
+	if ($each_url != null) { 
+		echo $each_url;
+	}?>
 	</div>
 </div>
 

@@ -16,7 +16,7 @@ class Collection extends MY_Controller {
 			$index = mt_rand(1, $max);
 //			$index = 1;
 		} 
-		$this->getCollection($index);
+		$this->getCollection($index, null);
 		$this->getComments($index);
 
 		$this->load->view('footer');
@@ -34,13 +34,14 @@ class Collection extends MY_Controller {
 		// 담은 명언 모두 출력
 		$qResult = $this->Userlike_model->getAll($this->session->userdata('userID'));
 		foreach ($qResult as $result) {
-			$this->getCollection($result->coll_id);
+			$each_url = "<span class='pull-right'><a href='".site_url('/Collection/saying')."/".$result->coll_id."'>댓글 보러가기</a> <span class='glyphicon glyphicon-expand'</span>";
+			$this->getCollection($result->coll_id, $each_url);
 		}
 
 		$this->load->view('footer');
 	}
 
-	private function getCollection($index) {	/* Says 불러오기 */
+	private function getCollection($index, $each_url) {	/* Says 불러오기 */
 		$this->load->model('Collection_model');
 		$qResult = $this->Collection_model->get($index);		// Says 불러오기
 		$coll_id = $qResult[0]->id;
@@ -53,7 +54,7 @@ class Collection extends MY_Controller {
 		if ($this->session->userdata('is_login'))
 			$keeping = $this->getKeepSays($this->session->userdata('userID'), $coll_id);
 
-		$this->load->view('saying', array('coll_id'=>$coll_id, 'say'=>$say, 'trans'=>$trans, 'by'=>$by, 'index'=>$index, 'keeping'=>$keeping));
+		$this->load->view('saying', array('coll_id'=>$coll_id, 'say'=>$say, 'trans'=>$trans, 'by'=>$by, 'index'=>$index, 'keeping'=>$keeping, 'each_url'=>$each_url));
 	}
 
 	private function getKeepSays($user_id, $coll_id) {		/* 담은 명언 확인 */
